@@ -27,6 +27,7 @@ public class testCore {
 		tst.test2();
 		
 		TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3);
+		TableTextReader.readFileScanner ( new File ("res/cleric.txt"), 13);
 
 	}
 
