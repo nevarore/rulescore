@@ -10,6 +10,11 @@ public class Cell {
 		nValue = val;
 	}
 	
+	public Cell ( String val)
+	{
+		sValue = val;
+	}
+	
 	public int getnValue() {
 		return nValue;
 	}

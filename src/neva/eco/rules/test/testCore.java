@@ -1,8 +1,12 @@
 package neva.eco.rules.test;
 
+import java.io.File;
+import java.io.IOException;
+
 import neva.eco.rules.core.Cell;
 import neva.eco.rules.core.RulesAdd;
 import neva.eco.rules.core.Variable;
+import neva.eco.rules.files.TableTextReader;
 
 public class testCore {
 	int THACO_LEVEL_WIZ []= {20, 20, 19, 19, 18, 18, 17, 17, 16, 16 };
@@ -16,11 +20,13 @@ public class testCore {
 	
 	Variable thaco, thaco_sw;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		testCore tst = new testCore();
 		tst.initTable();
 		tst.test1();
 		tst.test2();
+		
+		TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3);
 
 	}
 
