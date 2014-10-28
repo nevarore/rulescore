@@ -46,8 +46,11 @@ public class Variable {
 		int colRefPos = tb.getColPosFromName ( colRef ); // get ref col pos
 		int rowRef = tb.getRowPos ( colRefPos, val ); // return la row pos 
 		
+		if ( rowRef == -1 ) return; // not found
+		
 		int colResultPos = tb.getColPosFromName ( colResult ); // get ref col pos
-		this.value = tb.getRowValue ( colResultPos, rowRef );
+		Cell newval = tb.getRowValue ( colResultPos, rowRef );
+		if ( newval != null ) this.value = newval;
 		
 	}
 	

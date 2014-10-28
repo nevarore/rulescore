@@ -87,7 +87,7 @@ public class RulesJsonReader {
 			
 			//reading inner object from json object
 			JSONObject innerJsonObjectB = (JSONObject) jsonObject.get("B");
-			String typeB = (String) innerJsonObjectA.get("type");
+			String typeB = (String) innerJsonObjectB.get("type");
 
 			// type getTable value
 			// thaco.rules.getA().setValueFromTable(2, thaco_level_wiz); // level 2

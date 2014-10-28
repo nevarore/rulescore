@@ -69,7 +69,7 @@ public class TableTextReader {
             		for ( int c = 0; c<colCount; c++)
             		{
             			data = br.next();
-            			System.out.println("data:" + data);
+            			System.out.println("data col :" + c + "=>" + data + "<=");
             			table.col.get(c).put(line, new Cell ( data));
             			
             		}               

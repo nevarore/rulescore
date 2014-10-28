@@ -1,9 +1,9 @@
 package neva.eco.rules.core;
 
 public class Cell {
-	int nValue;
-	String sValue;
-	float fValue;
+	int nValue=0;
+	String sValue="";
+	float fValue=0.0f;
 	
 	public Cell ( int val)
 	{

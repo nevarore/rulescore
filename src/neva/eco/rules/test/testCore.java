@@ -64,7 +64,7 @@ public class testCore {
 		try {
 			table.put("xp", TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3) );
 			table.put("cleric", TableTextReader.readFileScanner ( new File ("res/cleric.txt"), 13) );
-			table.put("armor", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 14) );
+			table.put("armor", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 7) );
 			
 		} catch (IOException e) {
 		
