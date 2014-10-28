@@ -65,6 +65,9 @@ public class testCore {
 			table.put("xp", TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3) );
 			table.put("cleric", TableTextReader.readFileScanner ( new File ("res/cleric.txt"), 13) );
 			table.put("armor", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 7) );
+			table.put("weapons", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 5) );
+			table.put("cleric spells", TableTextReader.readFileScanner ( new File ("res/cleric spells.txt"), 9) );
+			table.put("wizard spells", TableTextReader.readFileScanner ( new File ("res/wizards spells.txt"), 10) );
 			
 		} catch (IOException e) {
 		
