@@ -10,6 +10,7 @@ package neva.eco.rules.core;
 public class Variable {
 	public RulesInf rules;
 	public String name;
+	public long id;
 	
 	public Cell value = new Cell (0);
 	
@@ -39,6 +40,15 @@ public class Variable {
 			return value;
 		}
 		return null;
+	}
+
+	public void setValueFromTable(TableCell tb, String colRef, String val, String colResult) {
+		int colRefPos = tb.getColPosFromName ( colRef ); // get ref col pos
+		int rowRef = tb.getRowPos ( colRefPos, val ); // return la row pos 
+		
+		int colResultPos = tb.getColPosFromName ( colResult ); // get ref col pos
+		this.value = tb.getRowValue ( colResultPos, rowRef );
+		
 	}
 	
 

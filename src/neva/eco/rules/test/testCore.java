@@ -2,11 +2,16 @@ package neva.eco.rules.test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+
+import org.json.simple.parser.ParseException;
 
 import neva.eco.rules.core.Cell;
 import neva.eco.rules.core.RulesAdd;
+import neva.eco.rules.core.TableCell;
 import neva.eco.rules.core.Variable;
 import neva.eco.rules.files.TableTextReader;
+import neva.eco.rules.json.RulesJsonReader;
 
 public class testCore {
 	int THACO_LEVEL_WIZ []= {20, 20, 19, 19, 18, 18, 17, 17, 16, 16 };
@@ -19,16 +24,17 @@ public class testCore {
 	Cell [] sw_bonus;
 	
 	Variable thaco, thaco_sw;
+	
+	HashMap <String, TableCell> table;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException, ParseException {
 		testCore tst = new testCore();
 		tst.initTable();
 		tst.test1();
 		tst.test2();
+		tst.test3();
+				
 		
-		TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3);
-		TableTextReader.readFileScanner ( new File ("res/cleric.txt"), 13);
-
 	}
 
 	public void initTable ()
@@ -53,6 +59,19 @@ public class testCore {
 		{
 			sw_bonus[i] = new Cell ( SW_BONUS[i]);
 		}
+		
+		table = new HashMap<String, TableCell> ();
+		try {
+			table.put("xp", TableTextReader.readFileScanner ( new File ("res/xp.txt"), 3) );
+			table.put("cleric", TableTextReader.readFileScanner ( new File ("res/cleric.txt"), 13) );
+			table.put("armor", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 14) );
+			
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		
+
 	}
 	
 	public void test1 ()
@@ -90,6 +109,19 @@ public class testCore {
 		
 		System.out.println ("THACO = " + thaco_sw.rules.getA().value.getnValue());
 		System.out.println ("THACO SW = " + thaco_sw.value.getnValue());
+		
+		
+		
+	}
+	
+	public void test3 () throws InstantiationException, IllegalAccessException, IOException, ParseException
+	{		
+		System.out.println ("=========== test JSON ===========");
+		
+		RulesJsonReader.jsonReader("res/variables.txt", table);
+		
+		//System.out.println ("THACO = " + thaco_sw.rules.getA().value.getnValue());
+		//System.out.println ("THACO SW = " + thaco_sw.value.getnValue());
 		
 		
 		

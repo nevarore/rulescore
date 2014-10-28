@@ -1,0 +1,38 @@
+{
+  "variables":[
+  {
+    "id":1,
+    "name":"XP",
+    "rule":"neva.eco.rules.core.RulesAdd"
+    "A":{
+            "type":"table",
+            "tablename":"xp",
+            "colref":"Level",            
+            "value":"4",
+            "colresult":"Experience Points"            
+        },
+    "B":{
+            "type":"none"            
+        },
+    "phoneNumbers":[9988664422, 1234567890],
+    "role":"Developer"
+   },
+   {
+    "id":2,
+    "name":"AC",
+    "rule":"neva.eco.rules.core.RulesAdd"
+    "A":{
+            "type":"table",
+            "tablename":"armor",
+            "colref":"Armor",            
+            "value":"Chain mail",
+            "colresult":"Armor Class (AC)"            
+        },
+    "B":{
+            "type":"none"            
+        },    
+    "role":"Developer"
+   }
+   
+   ]
+}
