@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import neva.eco.rules.core.Cell;
 import neva.eco.rules.core.RulesInf;
 import neva.eco.rules.core.TableCell;
 import neva.eco.rules.core.Variable;
@@ -66,45 +67,11 @@ public class RulesJsonReader {
 
 			//reading inner object from json object
 			JSONObject innerJsonObjectA = (JSONObject) jsonObject.get("A");
-			String typeA = (String) innerJsonObjectA.get("type");
-
-			// type getTable value
-			// thaco.rules.getA().setValueFromTable(2, thaco_level_wiz); // level 2
-			if ( typeA.equals("table"))
-			{
-				String value = (String) innerJsonObjectA.get("value");
-				String tableName =  (String) innerJsonObjectA.get("tablename");
-				String colRef =  (String) innerJsonObjectA.get("colref");
-				String colResult =  (String) innerJsonObjectA.get("colresult");
-
-				TableCell tb = table.get(tableName);
-				if ( tb != null)
-				{
-					var.rules.getA().setValueFromTable(tb,colRef,value,colResult);
-					System.out.println ("JSON assign to " + var.name + " = " + var.rules.getA().value.getsValue());
-				}
-			}
-			
+			var.rules.setA( RulesJsonReader.getJSonRule ( innerJsonObjectA, var.rules.getA(), table, varList ) );
+	
 			//reading inner object from json object
 			JSONObject innerJsonObjectB = (JSONObject) jsonObject.get("B");
-			String typeB = (String) innerJsonObjectB.get("type");
-
-			// type getTable value
-			// thaco.rules.getA().setValueFromTable(2, thaco_level_wiz); // level 2
-			if ( typeB.equals("table"))
-			{
-				String value = (String) innerJsonObjectB.get("value");
-				String tableName =  (String) innerJsonObjectB.get("tablename");
-				String colRef =  (String) innerJsonObjectB.get("colref");
-				String colResult =  (String) innerJsonObjectB.get("colresult");
-
-				TableCell tb = table.get(tableName);
-				if ( tb != null)
-				{
-					var.rules.getB().setValueFromTable(tb,colRef,value,colResult);
-					System.out.println ("JSON assign to " + var.name + " = " + var.rules.getB().value.getsValue());
-				}
-			}
+			var.rules.setB( RulesJsonReader.getJSonRule ( innerJsonObjectB, var.rules.getB(), table, varList ) );
 
 			varList.put(var.name, var);
 		}
@@ -131,6 +98,49 @@ public class RulesJsonReader {
 
 		return null;
 
+	}
+	
+	private static Variable getJSonRule(JSONObject innerJsonObjectA,
+			Variable A, HashMap<String, TableCell> table, HashMap <String, Variable> varList) 
+	{
+		//reading inner object from json object		
+		String typeA = (String) innerJsonObjectA.get("type");
+
+		// type getTable value
+		// thaco.rules.getA().setValueFromTable(2, thaco_level_wiz); // level 2
+		if ( typeA.equals("table"))
+		{
+			A.colRefvalue= (String) innerJsonObjectA.get("value");
+			A.tableName =  (String) innerJsonObjectA.get("tablename");
+			A.colRef =  (String) innerJsonObjectA.get("colref");
+			A.colResult =  (String) innerJsonObjectA.get("colresult");
+			String variable2GetValue =  (String) innerJsonObjectA.get("variable");
+			
+			if ( variable2GetValue != null )
+				A.colRefvalue = varList.get(variable2GetValue).value.getsValue();
+
+			TableCell tb = table.get(A.tableName);
+			if ( tb != null)
+			{
+				A.setValueFromTable(tb,A.colRef,
+						A.colRefvalue,A.colResult);
+				System.out.println ("JSON assign to " + A.name + " = " + A.value.getsValue());
+			}
+		}
+		
+		if ( typeA.equals("value"))
+		{
+			A.value = new Cell ((String) innerJsonObjectA.get("value"));
+			A.name  =  (String) innerJsonObjectA.get("name");				
+		}
+		
+		if ( typeA.equals("variable"))
+		{
+			A.value = new Cell ((String) innerJsonObjectA.get("value"));
+			A.name  =  (String) innerJsonObjectA.get("name");				
+		}
+		
+		return A;
 	}
 
 }

@@ -2,12 +2,12 @@ package neva.eco.rules.core;
 
 import java.util.HashMap;
 
-public class RulesAdd implements RulesInf  {
+public class RulesEval implements RulesInf  {
 	public Variable A;
 	public Variable B;
 	private boolean alreadyEval = false;
 	
-	public RulesAdd ()
+	public RulesEval ()
 	{
 		A = new Variable();
 		B = new Variable();
@@ -23,13 +23,31 @@ public class RulesAdd implements RulesInf  {
 		return vRes;
 	}
 	
-	// eval_cell n'est plus appele -> variable.eval ()
+	// A = table to look inside
+	// B = variable to evaluate and use as parameter for B
 	public Cell eval_cell (HashMap<String, Variable> var, HashMap<String, TableCell> table)
 	{
-		System.out.println ("Eval: A=" + A.tableName + " " + A.value.getnValue() + " B= " + B.tableName + " " + B.value.getnValue());
-		int result = A.value.getnValue() + B.value.getnValue();
-		Variable vRes = new Variable ();
-		return new Cell ( result);
+		System.out.println ("RuleEval: A=" + A.name + " " + " B = " + B.tableName );
+				
+		// look for B variable and assign it
+		// this following code make a copy but don't use original
+		/*Variable newB = var.get ( B.name );
+		if ( newB.rules != null ) newB.rules.eval_cell(var, table);
+		B = newB;*/
+		
+		if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
+			Cell res = var.get ( B.name ).rules.eval_cell(var, table);
+			var.get ( B.name ).value = res;			
+		}
+
+		TableCell tb = table.get(A.tableName);
+		if ( tb != null)
+		{
+			A.setValueFromTable(tb,A.colRef,
+					var.get ( B.name ).value.getsValue(),A.colResult);
+			System.out.println ("JSON assign to " + A.name + " = " + A.value.getsValue());
+		}
+		return A.value;
 		
 	}
 
@@ -64,7 +82,6 @@ public class RulesAdd implements RulesInf  {
 	public void setB(Variable b) {
 		B = b;
 	}
-	
 	@Override
 	public boolean isAlreadyEval() {
 		return alreadyEval;

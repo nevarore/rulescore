@@ -3,6 +3,7 @@ package neva.eco.rules.test;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.parser.ParseException;
 
@@ -68,6 +69,7 @@ public class testCore {
 			table.put("weapons", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 5) );
 			table.put("cleric spells", TableTextReader.readFileScanner ( new File ("res/cleric spells.txt"), 9) );
 			table.put("wizard spells", TableTextReader.readFileScanner ( new File ("res/wizards spells.txt"), 10) );
+			table.put("abilityScore", TableTextReader.readFileScanner ( new File ("res/abilityScore.txt"), 2) );
 			
 		} catch (IOException e) {
 		
@@ -108,7 +110,7 @@ public class testCore {
 		thaco_sw.rules.setA(thaco);
 		thaco_sw.rules.getB().setValueFromTable(18, sw_bonus); // force 18
 		
-		thaco_sw.value = thaco_sw.eval ();
+		thaco_sw.value = thaco_sw.eval (null, null);
 		
 		System.out.println ("THACO = " + thaco_sw.rules.getA().value.getnValue());
 		System.out.println ("THACO SW = " + thaco_sw.value.getnValue());
@@ -121,7 +123,24 @@ public class testCore {
 	{		
 		System.out.println ("=========== test JSON ===========");
 		
-		RulesJsonReader.jsonReader("res/variables.txt", table);
+		HashMap <String, Variable> var = RulesJsonReader.jsonReader("res/variables.txt", table);
+		
+		// eval
+		for (Map.Entry<String,Variable> e : var.entrySet()){
+			Variable v = e.getValue();
+			System.out.println ("=========== Eval " + v.name + " ===========");
+			v.eval ( var, table);
+			
+			System.out.println ("Variable: " + v.name + " = [" + v.value.getsValue() + "] ->" + v.value.getnValue());
+		}
+		
+		// final var status 
+		System.out.println ("=========== Final Result ===========");
+		for (Map.Entry<String,Variable> e : var.entrySet()){
+			Variable v = e.getValue();
+			
+			System.out.println ("Variable: " + v.name + " = [" + v.value.getsValue() + "] ->" + v.value.getnValue());
+		}
 		
 		//System.out.println ("THACO = " + thaco_sw.rules.getA().value.getnValue());
 		//System.out.println ("THACO SW = " + thaco_sw.value.getnValue());

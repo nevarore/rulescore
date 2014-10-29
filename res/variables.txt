@@ -29,10 +29,78 @@
             "colresult":"Armor Class (AC)"            
         },
     "B":{
-            "type":"none"            
+            "type":"table",  
+            "tablename":"abilityScore",
+            "colref":"Score",            
+            "value":"17",
+            "colresult":"Modifier"                    
         },    
     "role":"Developer"
-   }
+   },
+   {
+    "id":3,
+    "name":"FOR",
+    "rule":"neva.eco.rules.core.RulesRoll"
+    "A":{
+            "type":"value",   
+            "name":"Nb Dice",            
+            "value":"3"                        
+        },
+    "B":{
+            "type":"value",   
+            "name":"Dice type",                     
+            "value":"6"                                
+        },    
+    "role":"Developer"
+   },
+   {
+    "id":4,
+    "name":"DEX",
+    "rule":"neva.eco.rules.core.RulesRoll",
+    "A":{
+            "type":"value",   
+            "name":"Nb Dice",            
+            "value":"3"                        
+        },
+    "B":{
+            "type":"value",   
+            "name":"Dice type",                     
+            "value":"6"                                
+        }  
+   },
+   {
+    "id":5,
+    "name":"FORBonus",
+    "rule":"neva.eco.rules.core.RulesAdd",   
+    "A":{
+            "type":"table",  
+            "tablename":"abilityScore",
+            "colref":"Score",            
+            "value":"17",
+            "colresult":"Modifier"                    
+        },     
+    "B":{
+        "type":"none"                    
+    	},     
+    "role":"Developer"
+   },
+   {
+    "id":6,
+    "name":"DEXBonus",
+    "rule":"neva.eco.rules.core.RulesEval",
+    "A":{
+            "type":"table",  
+            "tablename":"abilityScore",
+            "colref":"Score",            
+            "value":"1",
+            "colresult":"Modifier"                    
+        },    
+    "B":{
+            "type":"variable",   
+            "name":"DEX",            
+            "value":"0"                        
+        }      
+   },
    
    ]
 }

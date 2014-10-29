@@ -49,7 +49,7 @@ public class TableCell {
 		
 		for (Map.Entry<Integer,Cell> e : colonne.entrySet()){
 			Cell cell = e.getValue();
-			if ( cell.sValue.equalsIgnoreCase(rowRefValue) )
+			if ( cell.getsValue().equalsIgnoreCase(rowRefValue) )
 			{
 				System.out.println("getRowPos key: " + e.getKey() + " : " + e.getValue() + " Pos= " + pos);
 				return pos;
