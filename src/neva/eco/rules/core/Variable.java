@@ -24,10 +24,11 @@ public class Variable {
 	static public final int TYPE_VALUE = 2;
 	static public final int TYPE_VARIABLE = 3;
 	
-	public int type=0;
-	
-	
+	public int type=0;	
+		
 	public Cell value = new Cell (0);
+	public boolean repeatable;	
+	public long repeatble;
 	
 	public Cell getValue() {
 		return value;
