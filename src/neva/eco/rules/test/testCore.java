@@ -68,8 +68,10 @@ public class testCore {
 			table.put("armor", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 7) );
 			table.put("weapons", TableTextReader.readFileScanner ( new File ("res/armor.txt"), 5) );
 			table.put("cleric spells", TableTextReader.readFileScanner ( new File ("res/cleric spells.txt"), 9) );
-			table.put("wizard spells", TableTextReader.readFileScanner ( new File ("res/wizards spells.txt"), 10) );
+			table.put("wizard spells", TableTextReader.readFileScanner ( new File ("res/wizards spells.txt"), 11) );
 			table.put("abilityScore", TableTextReader.readFileScanner ( new File ("res/abilityScore.txt"), 2) );
+			table.put("Classes", TableTextReader.readFileScanner ( new File ("res/classes.txt"), 6) );
+			
 			
 		} catch (IOException e) {
 		
@@ -129,7 +131,7 @@ public class testCore {
 		for (Map.Entry<String,Variable> e : var.entrySet()){
 			Variable v = e.getValue();
 			System.out.println ("=========== Eval " + v.name + " ===========");
-			v.eval ( var, table);
+			if ( !v.rules.isAlreadyEval() ) v.eval ( var, table);
 			
 			System.out.println ("Variable: " + v.name + " = [" + v.value.getsValue() + "] ->" + v.value.getnValue());
 		}

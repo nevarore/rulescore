@@ -28,12 +28,45 @@ public class RulesRoll implements RulesInf  {
 	// eval_cell n'est plus appele -> variable.eval ()
 	public Cell eval_cell (HashMap<String, Variable> var, HashMap<String, TableCell> table)
 	{
-		System.out.println ("Eval: A=" + A.tableName + " " + A.value.getnValue() + " B= " + B.tableName + " " + B.value.getnValue());
-				
-		int result = rollDice (A.value.getnValue(), B.value.getnValue() );
-		Variable vRes = new Variable ();
+		int result;
+		int valA=0, valB=0;
 		
-		setAlreadyEval(true);
+		switch ( A.type )
+		{
+			case 2:	 //Variable.TYPE_VALUE
+				valA = A.value.getnValue();
+				break;
+			case 3:  //Variable.TYPE_VARIABLE 
+				// getting variable
+				if ( var.get ( A.name ) != null && !var.get ( A.name ).rules.isAlreadyEval() ) {
+					Cell res = var.get ( A.name ).rules.eval_cell(var, table);
+					var.get ( A.name ).value = res;					
+				}
+				valA = var.get ( A.name ).value.getnValue();
+				break;
+		}
+		
+		switch ( B.type )
+		{
+			case 2:	 //Variable.TYPE_VALUE
+				valB = B.value.getnValue();
+				break;
+			case 3:  //Variable.TYPE_VARIABLE 
+				// getting variable
+				if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
+					Cell res = var.get ( B.name ).rules.eval_cell(var, table);
+					var.get ( B.name ).value = res;						
+				}
+				valB = var.get ( B.name ).value.getnValue();
+				break;
+		}
+				
+		
+		System.out.println ("RulesRoll Eval: A=" + A.name + " " + valA + " B= " + B.name + " " + valB);
+		
+		result = rollDice (valA, valB );				
+		setAlreadyEval(true);			
+		
 		return new Cell ( result );
 		
 	}
@@ -43,13 +76,20 @@ public class RulesRoll implements RulesInf  {
 		int result = 0;
 		
 		//note a single Random object is reused here
-	    Random randomGenerator = new Random();
-	    for (int idx = 1; idx <= nb; ++idx){
-	      int randomInt = randomGenerator.nextInt(nDice)+1;
-	      result += randomInt;
-	      System.out.println("Generated : " + randomInt);
-	    }
-		
+		Random randomGenerator = new Random();
+		for (int idx = 1; idx <= nb; ++idx)
+		{
+			int randomInt = 0;
+			try {
+				randomInt = randomGenerator.nextInt(nDice)+1;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			result += randomInt;
+			System.out.println("Generated : " + randomInt);
+		}
+
 		return result;
 		
 	}

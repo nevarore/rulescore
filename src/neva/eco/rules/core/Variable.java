@@ -10,6 +10,7 @@ import java.util.HashMap;
  * une operande peut etre une varable
  */
 public class Variable {
+	
 	public RulesInf rules;
 	public String name;
 	public long id;
@@ -18,6 +19,13 @@ public class Variable {
 	public String tableName;
 	public String colRef;
 	public String colResult;
+	
+	static public final int TYPE_TABLE = 1;
+	static public final int TYPE_VALUE = 2;
+	static public final int TYPE_VARIABLE = 3;
+	
+	public int type=0;
+	
 	
 	public Cell value = new Cell (0);
 	
@@ -41,8 +49,8 @@ public class Variable {
 		if ( rules != null )
 		{
 			// eval child first 
-			if ( rules.getA().rules != null ) rules.getA().value = rules.getA().eval(var, table);
-			if ( rules.getB().rules != null ) rules.getB().value = rules.getB().eval(var, table);
+			if ( rules.getA().rules != null && !rules.getA ().rules.isAlreadyEval() ) rules.getA().value = rules.getA().eval(var, table);
+			if ( rules.getB().rules != null && !rules.getB ().rules.isAlreadyEval() ) rules.getB().value = rules.getB().eval(var, table);
 			// eval parent
 			value = rules.eval_cell(var, table);
 			return value;

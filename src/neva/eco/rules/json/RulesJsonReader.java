@@ -110,6 +110,7 @@ public class RulesJsonReader {
 		// thaco.rules.getA().setValueFromTable(2, thaco_level_wiz); // level 2
 		if ( typeA.equals("table"))
 		{
+			A.type = Variable.TYPE_TABLE;
 			A.colRefvalue= (String) innerJsonObjectA.get("value");
 			A.tableName =  (String) innerJsonObjectA.get("tablename");
 			A.colRef =  (String) innerJsonObjectA.get("colref");
@@ -130,12 +131,14 @@ public class RulesJsonReader {
 		
 		if ( typeA.equals("value"))
 		{
+			A.type = Variable.TYPE_VALUE;
 			A.value = new Cell ((String) innerJsonObjectA.get("value"));
 			A.name  =  (String) innerJsonObjectA.get("name");				
 		}
 		
 		if ( typeA.equals("variable"))
 		{
+			A.type = Variable.TYPE_VARIABLE;
 			A.value = new Cell ((String) innerJsonObjectA.get("value"));
 			A.name  =  (String) innerJsonObjectA.get("name");				
 		}

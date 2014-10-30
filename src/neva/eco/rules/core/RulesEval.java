@@ -27,7 +27,7 @@ public class RulesEval implements RulesInf  {
 	// B = variable to evaluate and use as parameter for B
 	public Cell eval_cell (HashMap<String, Variable> var, HashMap<String, TableCell> table)
 	{
-		System.out.println ("RuleEval: A=" + A.name + " " + " B = " + B.tableName );
+		System.out.println ("RuleEval: A=" + A.name + " " + " B = " + B.name );
 				
 		// look for B variable and assign it
 		// this following code make a copy but don't use original
@@ -35,6 +35,7 @@ public class RulesEval implements RulesInf  {
 		if ( newB.rules != null ) newB.rules.eval_cell(var, table);
 		B = newB;*/
 		
+		// getting variable
 		if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
 			Cell res = var.get ( B.name ).rules.eval_cell(var, table);
 			var.get ( B.name ).value = res;			
@@ -45,8 +46,8 @@ public class RulesEval implements RulesInf  {
 		{
 			A.setValueFromTable(tb,A.colRef,
 					var.get ( B.name ).value.getsValue(),A.colResult);
-			System.out.println ("JSON assign to " + A.name + " = " + A.value.getsValue());
-		}
+			System.out.println ("RulesEval JSON assign to " + A.name + " = " + A.value.getsValue());
+		} else System.out.println ("Table Not found " + A.tableName); 
 		return A.value;
 		
 	}
