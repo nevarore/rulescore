@@ -63,7 +63,7 @@ public class RulesJsonReader {
 
 			var.id = (long) jsonObject.get("id");
 			var.name = (String) jsonObject.get("name");
-			var.repeatble = (long) jsonObject.get("repeatble");
+			var.repeatable = (boolean) jsonObject.get("repeatable");
 			
 			var.rules = RulesJsonReader.classLoader((String) jsonObject.get("rule"));
 

@@ -131,7 +131,7 @@ public class testCore {
 		for (Map.Entry<String,Variable> e : var.entrySet()){
 			Variable v = e.getValue();
 			System.out.println ("=========== Eval " + v.name + " ===========");
-			if ( !v.rules.isAlreadyEval() ) v.eval ( var, table);
+			if ( !v.rules.isAlreadyEval() || v.repeatable ) v.eval ( var, table);
 			
 			System.out.println ("Variable: " + v.name + " = [" + v.value.getsValue() + "] ->" + v.value.getnValue());
 		}

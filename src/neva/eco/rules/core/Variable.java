@@ -28,7 +28,7 @@ public class Variable {
 		
 	public Cell value = new Cell (0);
 	public boolean repeatable;	
-	public long repeatble;
+	
 	
 	public Cell getValue() {
 		return value;
@@ -50,6 +50,7 @@ public class Variable {
 		if ( rules != null )
 		{
 			// eval child first 
+			
 			if ( rules.getA().rules != null && !rules.getA ().rules.isAlreadyEval() ) rules.getA().value = rules.getA().eval(var, table);
 			if ( rules.getB().rules != null && !rules.getB ().rules.isAlreadyEval() ) rules.getB().value = rules.getB().eval(var, table);
 			// eval parent

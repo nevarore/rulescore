@@ -3,7 +3,7 @@
   {
     "id":1,
     "name":"XP",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd"
     "A":{
             "type":"table",
@@ -21,7 +21,7 @@
    {
     "id":2,
     "name":"AC",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd"
     "A":{
             "type":"table",
@@ -42,7 +42,7 @@
    {
     "id":3,
     "name":"FOR",    
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesRoll"
     "A":{
             "type":"value",   
@@ -59,7 +59,7 @@
    {
     "id":4,
     "name":"DEX",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesRoll",
     "A":{
             "type":"value",   
@@ -75,7 +75,7 @@
    {
     "id":5,
     "name":"FORBonus",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesEval",   
     "A":{
             "type":"table",  
@@ -94,7 +94,7 @@
    {
     "id":6,
     "name":"DEXBonus",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesEval",
     "A":{
             "type":"table",  
@@ -112,7 +112,7 @@
    {
     "id":7,
     "name":"Hit Dice",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
             "type":"table",  
@@ -128,7 +128,7 @@
    {
     "id":7,
     "name":"Hit Point Level1",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
             "type":"table",  
@@ -145,7 +145,7 @@
    {
     "id":8,
     "name":"Hit Point false",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
             "type":"table",  
@@ -162,7 +162,7 @@
    {
     "id":9,
     "name":"Hit Point Roll",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesRoll",
     "A":{
     		"comment":"getting level as number of dice",
@@ -180,7 +180,7 @@
    {
     "id":10,
     "name":"Level",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
     		"comment":"simple level val",
@@ -196,7 +196,7 @@
    {
     "id":11,
     "name":"Final Hit Point",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
     		"comment":"Add Hit Point + base",
@@ -213,7 +213,7 @@
    {
     "id":12,
     "name":"CON",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesRoll",
     "A":{
             "type":"value",   
@@ -229,7 +229,7 @@
    {
     "id":13,
     "name":"CONBonus",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesEval",
     "A":{
             "type":"table",  
@@ -247,7 +247,7 @@
    {
     "id":14,
     "name":"Initiative Roll",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesRoll",
     "A":{
     		"comment":". The initiative order remains the same from round to round."
@@ -264,7 +264,7 @@
    {
     "id":15,
     "name":"Initiative",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesAdd",
     "A":{
     		"comment":". The initiative order remains the same from round to round."
@@ -281,7 +281,7 @@
    {
     "id":16,
     "name":"Spell List Roll test",
-    "repeatble":1,
+    "repeatable":true,
     "rule":"neva.eco.rules.core.RulesRoll",
     "A":{
     		"comment":"get a random spell"
@@ -298,7 +298,7 @@
    {
     "id":17,
     "name":"Get Spell test",
-    "repeatble":0,
+    "repeatable":false,
     "rule":"neva.eco.rules.core.RulesEval",
     "A":{
     		"type":"table",
@@ -312,7 +312,42 @@
             "name":"Spell List Roll test",
             "value":"0"                                   
         }      
+   },
+   {
+    "id":18,
+    "name":"Get Spell test repeat",
+    "repeatable":false,
+    "rule":"neva.eco.rules.core.RulesEval",
+    "A":{
+    		"type":"table",
+    		"tablename":"wizard spells",
+            "colref":"Number",            
+            "value":"0",
+            "colresult":"1st Level"   
+        },    
+    "B":{
+            "type":"variable",
+            "name":"Spell List Roll test",
+            "value":"0"                                   
+        }      
+   },
+   {
+    "id":19,
+    "name":"Iterator Get Spell test",
+    "repeatable":false,
+    "rule":"neva.eco.rules.core.RulesIterator",
+    "A":{
+    		"comment":"A=variable a iterer",
+    		"type":"variable",
+    		"name":"Get Spell test repeat"               
+        },    
+    "B":{
+    		"comment":"B=variable ou value d iteration",
+            "type":"value",            
+            "value":"5"                                   
+        }      
    }
+   
     
    
    ]
