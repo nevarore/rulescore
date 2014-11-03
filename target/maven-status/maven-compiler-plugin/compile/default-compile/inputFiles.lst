@@ -3,6 +3,9 @@
 /home/vanrom/work/RulesCore/src/neva/eco/rules/files/TableTextReader.java
 /home/vanrom/work/RulesCore/src/neva/eco/rules/core/TableCell.java
 /home/vanrom/work/RulesCore/src/neva/eco/rules/core/RulesAdd.java
+/home/vanrom/work/RulesCore/src/neva/eco/rules/core/RulesEval.java
+/home/vanrom/work/RulesCore/src/neva/eco/rules/core/RulesIterator.java
 /home/vanrom/work/RulesCore/src/neva/eco/rules/core/RulesInf.java
+/home/vanrom/work/RulesCore/src/neva/eco/rules/core/RulesRoll.java
 /home/vanrom/work/RulesCore/src/neva/eco/rules/core/Cell.java
 /home/vanrom/work/RulesCore/src/neva/eco/rules/test/testCore.java

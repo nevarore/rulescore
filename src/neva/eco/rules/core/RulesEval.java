@@ -7,6 +7,16 @@ public class RulesEval implements RulesInf  {
 	public Variable B;
 	private boolean alreadyEval = false;
 	
+	private Cell cell[];
+
+	public Cell[] getCell() {
+		return cell;
+	}
+
+	public void setCell(Cell[] cell) {
+		this.cell = cell;
+	}
+	
 	public RulesEval ()
 	{
 		A = new Variable();
@@ -36,7 +46,7 @@ public class RulesEval implements RulesInf  {
 		B = newB;*/
 		
 		// getting variable
-		if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
+		if ( var.get ( B.name ) != null && (!var.get ( B.name ).rules.isAlreadyEval() || var.get ( B.name ).repeatable) ) {
 			Cell res = var.get ( B.name ).rules.eval_cell(var, table);
 			var.get ( B.name ).value = res;			
 		}

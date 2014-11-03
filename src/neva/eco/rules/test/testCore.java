@@ -142,6 +142,13 @@ public class testCore {
 			Variable v = e.getValue();
 			
 			System.out.println ("Variable: " + v.name + " = [" + v.value.getsValue() + "] ->" + v.value.getnValue());
+			if ( v.rules.getCell() != null)
+			{
+				for ( int i = 0; i<v.rules.getCell().length; i++)
+				{
+					System.out.println ("=========> " + v.rules.getCell()[i].getsValue() );
+				}
+			}
 		}
 		
 		//System.out.println ("THACO = " + thaco_sw.rules.getA().value.getnValue());

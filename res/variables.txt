@@ -339,12 +339,49 @@
     "A":{
     		"comment":"A=variable a iterer",
     		"type":"variable",
-    		"name":"Get Spell test repeat"               
+    		"name":"Get Spell for iterator"               
         },    
     "B":{
     		"comment":"B=variable ou value d iteration",
             "type":"value",            
             "value":"5"                                   
+        }      
+   }, 
+   {
+    "id":20,
+    "name":"Get Spell for iterator",
+    "repeatable":false,
+    "rule":"neva.eco.rules.core.RulesEval",
+    "A":{
+    		"type":"table",
+    		"tablename":"wizard spells",
+            "colref":"Number",            
+            "value":"0",
+            "colresult":"1st Level"   
+        },    
+    "B":{
+            "type":"variable",
+            "name":"Spell List Roll test",
+            "value":"0"                                   
+        }      
+   },
+   {
+    "id":21,
+    "name":"Iterator Get Spell test with table get",
+    "repeatable":false,
+    "rule":"neva.eco.rules.core.RulesIterator",
+    "A":{
+    		"comment":"A=variable a iterer",
+    		"type":"variable",
+    		"name":"Get Spell for iterator"               
+        },    
+    "B":{
+    		"comment":"B=variable ou value d iteration",
+            "type":"table",
+    		"tablename":"cleric",
+            "colref":"Level",            
+            "value":"4",
+            "colresult":"2nd"                                  
         }      
    }
    

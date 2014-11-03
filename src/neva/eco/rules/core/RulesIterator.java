@@ -2,11 +2,10 @@ package neva.eco.rules.core;
 
 import java.util.HashMap;
 
-public class RulesAdd implements RulesInf  {
+public class RulesIterator implements RulesInf  {
 	public Variable A;
 	public Variable B;
 	private boolean alreadyEval = false;
-	
 	private Cell cell[];
 
 	public Cell[] getCell() {
@@ -17,7 +16,7 @@ public class RulesAdd implements RulesInf  {
 		this.cell = cell;
 	}
 
-	public RulesAdd ()
+	public RulesIterator ()
 	{
 		A = new Variable();
 		B = new Variable();
@@ -39,32 +38,6 @@ public class RulesAdd implements RulesInf  {
 		int result;
 		int valA=0, valB=0;
 
-		switch ( A.type )
-		{
-		case 1: //table
-			//if ( A.colRefvalue != null )
-			//	A.colRefvalue = var.get(A.colRefvalue).value.getsValue();
-
-			TableCell tb = table.get(A.tableName);
-			if ( tb != null)
-			{
-				A.value = A.setValueFromTable(tb,A.colRef,A.colRefvalue,A.colResult);
-				valA = A.value.getnValue();					
-			}
-			break;
-		case 2:	 //Variable.TYPE_VALUE
-			valA = A.value.getnValue();
-			break;
-		case 3:  //Variable.TYPE_VARIABLE 
-			// getting variable
-			if ( var.get ( A.name ) != null && (!var.get ( A.name ).rules.isAlreadyEval() || var.get ( B.name ).repeatable)) {
-				Cell res = var.get ( A.name ).rules.eval_cell(var, table);
-				var.get ( A.name ).value = res;				
-			}
-			valA = var.get ( A.name ).value.getnValue();
-			break;
-		}
-
 		switch ( B.type )
 		{
 		case 1: //table
@@ -83,7 +56,7 @@ public class RulesAdd implements RulesInf  {
 			break;
 		case 3:  //Variable.TYPE_VARIABLE 
 			// getting variable
-			if ( var.get ( B.name ) != null && (!var.get ( B.name ).rules.isAlreadyEval() || var.get ( B.name ).repeatable)) {
+			if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
 				Cell res = var.get ( B.name ).rules.eval_cell(var, table);
 				var.get ( B.name ).value = res;				
 			}
@@ -92,9 +65,49 @@ public class RulesAdd implements RulesInf  {
 		}
 
 
-		System.out.println ("RulesAdd Eval: A=" + A.tableName + " " + valA + " B= " + B.tableName + " " + valB);
+		System.out.println ("RulesIterator Eval: A=" + A.tableName + " " + valA + " B= " + B.tableName + " " + valB);
 
-		result = valA + valB;		
+		result = valA + valB;
+		
+		
+		switch ( A.type )
+		{
+		case 1: //table
+			//if ( A.colRefvalue != null )
+			//	A.colRefvalue = var.get(A.colRefvalue).value.getsValue();
+
+			TableCell tb = table.get(A.tableName);
+			if ( tb != null)
+			{
+				A.value = A.setValueFromTable(tb,A.colRef,A.colRefvalue,A.colResult);
+				valA = A.value.getnValue();					
+			}
+			break;
+		case 2:	 //Variable.TYPE_VALUE
+			valA = A.value.getnValue();
+			break;
+		case 3:  //Variable.TYPE_VARIABLE 
+			
+			// getting variable
+			if ( var.get ( A.name ) != null )
+			{
+				cell = new Cell [valB] ;
+				// iterate
+				for ( int i=0; i<valB; i++)
+				{										
+					Cell res = var.get ( A.name ).rules.eval_cell(var, table);
+					var.get ( A.name ).value = res;
+					cell[i] = res;
+					
+					/*Variable v = new Variable ();  // Exception in thread "main" java.util.ConcurrentModificationException
+					v.name = A.name + i;					
+					v.value = res;
+					var.put(v.name, v);*/ 
+				}
+			}
+			valA = var.get ( A.name ).value.getnValue();
+			break;
+		}		
 		
 		setAlreadyEval(true);	
 		return new Cell ( result);

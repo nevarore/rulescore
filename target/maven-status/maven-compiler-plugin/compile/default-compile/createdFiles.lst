@@ -1,7 +1,7 @@
-neva/eco/rules/core/RulesAdd.class
 neva/eco/rules/test/testCore.class
 neva/eco/rules/files/TableTextReader.class
+neva/eco/rules/core/Cell.class
+neva/eco/rules/core/RulesAdd.class
 neva/eco/rules/core/RulesInf.class
 neva/eco/rules/core/Variable.class
-neva/eco/rules/core/Cell.class
 neva/eco/rules/core/TableCell.class

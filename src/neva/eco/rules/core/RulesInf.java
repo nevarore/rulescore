@@ -17,4 +17,8 @@ public interface RulesInf {
 
 	public abstract boolean isAlreadyEval();
 	public abstract void setAlreadyEval(boolean alreadyEval) ;
+	
+	public abstract Cell[] getCell();
+	public abstract void setCell(Cell[] cell);
+		
 }

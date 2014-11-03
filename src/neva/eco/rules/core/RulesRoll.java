@@ -38,7 +38,7 @@ public class RulesRoll implements RulesInf  {
 				break;
 			case 3:  //Variable.TYPE_VARIABLE 
 				// getting variable
-				if ( var.get ( A.name ) != null && !var.get ( A.name ).rules.isAlreadyEval() ) {
+				if ( var.get ( A.name ) != null && (!var.get ( A.name ).rules.isAlreadyEval() || var.get ( B.name ).repeatable) ) {
 					Cell res = var.get ( A.name ).rules.eval_cell(var, table);
 					var.get ( A.name ).value = res;					
 				}
@@ -53,7 +53,7 @@ public class RulesRoll implements RulesInf  {
 				break;
 			case 3:  //Variable.TYPE_VARIABLE 
 				// getting variable
-				if ( var.get ( B.name ) != null && !var.get ( B.name ).rules.isAlreadyEval() ) {
+				if ( var.get ( B.name ) != null && (!var.get ( B.name ).rules.isAlreadyEval() || var.get ( B.name ).repeatable)) {
 					Cell res = var.get ( B.name ).rules.eval_cell(var, table);
 					var.get ( B.name ).value = res;						
 				}
@@ -134,6 +134,18 @@ public class RulesRoll implements RulesInf  {
 
 	public void setAlreadyEval(boolean alreadyEval) {
 		this.alreadyEval = alreadyEval;
+	}
+
+	@Override
+	public Cell[] getCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCell(Cell[] cell) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
