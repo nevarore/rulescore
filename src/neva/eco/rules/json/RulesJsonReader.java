@@ -17,11 +17,12 @@ import neva.eco.rules.core.Cell;
 import neva.eco.rules.core.RulesInf;
 import neva.eco.rules.core.TableCell;
 import neva.eco.rules.core.Variable;
+import neva.eco.rules.layout.Bound;
+import neva.eco.rules.layout.LayoutItem;
 
 
 
 public class RulesJsonReader {
-
 	public static HashMap <String, Variable> jsonReader ( String filename, HashMap<String, TableCell> table ) throws IOException, InstantiationException, IllegalAccessException, ParseException
 	{
 		HashMap <String, Variable> varList = new HashMap<String, Variable>();
@@ -65,7 +66,7 @@ public class RulesJsonReader {
 			var.name = (String) jsonObject.get("name");
 			var.repeatable = (boolean) jsonObject.get("repeatable");
 			
-			var.rules = RulesJsonReader.classLoader((String) jsonObject.get("rule"));
+			var.rules = LayoutJsonReader.classLoader((String) jsonObject.get("rule"));
 
 			//reading inner object from json object
 			JSONObject innerJsonObjectA = (JSONObject) jsonObject.get("A");
@@ -81,6 +82,8 @@ public class RulesJsonReader {
         
         return varList;
 	}
+
+	
 
 	public static RulesInf classLoader(String className ) throws InstantiationException, IllegalAccessException
 	{
@@ -147,5 +150,6 @@ public class RulesJsonReader {
 		
 		return A;
 	}
-
+	
+	
 }

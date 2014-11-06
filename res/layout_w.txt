@@ -1,0 +1,1 @@
+{"layout":[{"id":1,"title":"Exp","layout":"neva.eco.rules.layout.Item","name":"XP","variable":"XP","bound":{"sizex":100,"sizey":30,"y":200,"x":200}}],"filename":"res\/layout_w.txt"}
