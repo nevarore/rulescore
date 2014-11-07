@@ -23,7 +23,7 @@ import neva.eco.rules.layout.LayoutItem;
 
 
 public class RulesJsonReader {
-	public static HashMap <String, Variable> jsonReader ( String filename, HashMap<String, TableCell> table ) throws IOException, InstantiationException, IllegalAccessException, ParseException
+	public static HashMap <String, Variable> jsonReader ( String filename, HashMap<String, TableCell> table ) throws IOException, InstantiationException, IllegalAccessException
 	{
 		HashMap <String, Variable> varList = new HashMap<String, Variable>();
 		FileReader reader = new FileReader(filename);
@@ -31,7 +31,13 @@ public class RulesJsonReader {
 
 		//create JsonReader object
 		JSONParser jsonParser = new JSONParser();
-		JSONObject jsonRoot = (JSONObject) jsonParser.parse(reader);
+		JSONObject jsonRoot;
+		try {
+			jsonRoot = (JSONObject) jsonParser.parse(reader);
+		} catch (Exception e) {			
+			e.printStackTrace();
+			throw new IOException();
+		}
 
 
 		/**
