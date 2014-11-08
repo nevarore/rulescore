@@ -110,7 +110,7 @@ public class LayoutJsonReader {
 			bound.put ("sizey", v.getBound().sizey);
 			
 			
-			item.put("bound", bound);
+			item.put("Bound", bound);
 			
 			list.add(item); 
 		}
